@@ -84,7 +84,7 @@ public class World
 		for(String key : obj.keySet()) // KEY == NICK
 		{
 			JSONObject player = obj.getJSONObject(key);
-			HumanEntity human = new HumanEntity(key, true, player.getInt("x"), player.getInt("y"), 0, 0, 0, 0);
+			HumanEntity human = new HumanEntity(key, true, player.getInt("x"), player.getInt("y"), 8, 4, 8, 20);
 			humans.put(key, human);
 		}
 	}
@@ -172,18 +172,18 @@ public class World
 			ent.moveRelative(json.getInt("x"), json.getInt("y"));
 		}
 		
-		if(updateType.equals("JUMP"))
+		else if(updateType.equals("JUMP"))
 		{
 			ent.jump();
 		}
 		
-		if(updateType.equals("STATUS"))
+		else if(updateType.equals("STATUS"))
 		{
 			ent.ModifyLife(json.getInt("life"));
 			ent.setMaxLife(json.getInt("max_life"));
 		}
 		
-		if(updateType.equals("REMOVE"))
+		else if(updateType.equals("REMOVE"))
 		{
 			humans.remove(json.getString("nickname"));
 		}

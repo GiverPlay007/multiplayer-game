@@ -55,6 +55,7 @@ public class HumanEntity extends LivingEntity
 	{
 		Camera camera = Game.getGame().getCamera();
 		g.drawImage(sprites.get(anim), getX() - camera.getX(), getY() - camera.getY(), null);
+		
 		Game.getGame().addPendingRender(new Runnable()
 		{
 			@Override

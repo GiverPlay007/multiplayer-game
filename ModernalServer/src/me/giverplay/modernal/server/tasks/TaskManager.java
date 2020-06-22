@@ -19,6 +19,11 @@ public class TaskManager
 	
 	private void start()
 	{
+		String servertask = RandomUtils.generateKey(10);
+		ServerTask stask = new ServerTask(servertask);
+		stask.start();
+		tasks.put(servertask, stask);
+		
 		String stk = RandomUtils.generateKey(10);
 		SocketTask socketTask = new SocketTask(stk);
 		socketTask.start();

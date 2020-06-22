@@ -13,13 +13,14 @@ public interface World
 	public void spawnEntity(Entity entity, Tile tile);
 	public void spawnEntity(Class<Entity> clazz, Tile tile) throws IllegalArgumentException;
 	
+	public void handlePlayerMove(PacketInPlayerMove packet);
+	public void removePlayer(String nick);
+	public void tick();
+	
 	public Tile[] getTiles(boolean ignoreDefault);
 	
 	public int getWidth();
 	public int getHeight();
-	
-	public void handlePlayerMove(PacketInPlayerMove packet);
-	public void removePlayer(String nick);
 	
 	public EntityPlayer addPlayer(String nick, SocketListenerTask task);
 }

@@ -13,6 +13,7 @@ import me.giverplay.modernal.server.net.packets.PacketOutPlayerJoin;
 import me.giverplay.modernal.server.net.packets.PacketOutPlayerMove;
 import me.giverplay.modernal.server.net.packets.PacketOutPlayerQuit;
 import me.giverplay.modernal.server.objects.GameObject;
+import me.giverplay.modernal.server.objects.ServerLogger;
 import me.giverplay.modernal.server.tasks.SocketListenerTask;
 
 public class ServerWorld extends GameObject implements World
@@ -35,18 +36,6 @@ public class ServerWorld extends GameObject implements World
 		this.tiles = tiles;
 		this.width = width;
 		this.height = height;
-		
-		new Thread(() -> {
-			
-			while(true)
-				for(int i = 0; i < pendingTasks.size(); i++) // Evitar modificações concorrentes nas HashMaps
-				{
-					Runnable task = pendingTasks.get(i);
-					task.run();
-					pendingTasks.remove(task);
-				}
-			
-		}).start();
 	}
 	
 	public JSONObject getPlayersJson()
@@ -71,7 +60,12 @@ public class ServerWorld extends GameObject implements World
 	@Override
 	public void tick()
 	{
+		if(pendingTasks.size() == 0)
+			return;
 		
+		Runnable task = pendingTasks.get(0);
+		task.run();
+		pendingTasks.remove(task);
 	}
 	
 	@Override
@@ -119,23 +113,29 @@ public class ServerWorld extends GameObject implements World
 	@Override
 	public void handlePlayerMove(PacketInPlayerMove packet)
 	{
-		JSONObject json = new JSONObject(packet.serialize());
-		
-		String nickname = json.getString("nickname");
-		
-		for(String nick : players.keySet())
+		pendingTasks.add(new Runnable()
 		{
-			if (nick.equals(nickname))
-				continue;
-			
-			players.get(nick).sendPacket(new PacketOutPlayerMove(packet));
-		}
+			@Override
+			public void run()
+			{
+				JSONObject json = new JSONObject(packet.serialize());
+				
+				String nickname = json.getString("nickname");
+				
+				for(String nick : players.keySet())
+				{
+					if (nick.equals(nickname))
+						continue;
+					players.get(nick).sendPacket(new PacketOutPlayerMove(packet));
+				}
+			}
+		});
 	}
 	
 	@Override
 	public EntityPlayer addPlayer(String nick, SocketListenerTask task)
 	{
-		EntityPlayer player = new EntityPlayer(nick, task, 10, 10);
+		EntityPlayer player = new EntityPlayer(nick, task, 32, 32);
 		
 		pendingTasks.add(new Runnable()
 		{
@@ -144,8 +144,8 @@ public class ServerWorld extends GameObject implements World
 			{
 				PacketOutPlayerJoin packet = new PacketOutPlayerJoin();
 				packet.then("nickname", nick);
-				packet.then("x", 10);
-				packet.then("y", 10);
+				packet.then("x", 32);
+				packet.then("y", 32);
 				packet.end();
 				
 				broadcast(packet);
@@ -176,9 +176,9 @@ public class ServerWorld extends GameObject implements World
 	}
 	
 	private void broadcast(PacketOut packet)
-	{
+	{ServerLogger.log("aaa");
 		for(EntityPlayer ep : players.values())
-		{
+		{ServerLogger.log("bbb");
 			ep.sendPacket(packet);
 		}
 	}
