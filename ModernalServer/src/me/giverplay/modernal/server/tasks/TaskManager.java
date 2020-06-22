@@ -25,7 +25,7 @@ public class TaskManager
 		this.socketTaskID = stk;
 		tasks.put(stk, socketTask);
 	}
-
+	
 	public String handleNewClientTask(Socket socket)
 	{
 		final String key = RandomUtils.generateKey(10);
@@ -45,5 +45,21 @@ public class TaskManager
 	public String getSocketTaskID()
 	{
 		return socketTaskID;
+	}
+	
+	public void remove(String taskID)
+	{
+		AbstractTask task = tasks.get(taskID);
+		
+		try
+		{
+			task.join();
+		} 
+		catch (InterruptedException e)
+		{
+			ServerLogger.warn("Erro task.join() em " + taskID);
+		}
+		
+		tasks.remove(taskID);
 	}
 }

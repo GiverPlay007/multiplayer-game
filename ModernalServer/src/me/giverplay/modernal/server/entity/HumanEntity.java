@@ -6,9 +6,9 @@ public class HumanEntity extends LivingEntity
 {
 	private Inventory inv = null;
 
-	public HumanEntity(int x, int y)
+	public HumanEntity(String name, int x, int y)
 	{
-		super(x, y);
+		super(name, x, y);
 	}
 	
 	public Inventory getInventory()

@@ -5,14 +5,14 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Scanner;
 
+import me.giverplay.modernal.server.Server;
 import me.giverplay.modernal.server.entity.EntityPlayer;
 import me.giverplay.modernal.server.net.Packet;
 import me.giverplay.modernal.server.net.PacketEntry;
 import me.giverplay.modernal.server.net.PacketHandler;
-import me.giverplay.modernal.server.net.packets.PacketPlayOutWorld;
+import me.giverplay.modernal.server.net.packets.PacketOutWorld;
 import me.giverplay.modernal.server.objects.ServerLogger;
 
-@SuppressWarnings("unused")
 public class SocketListenerTask extends AbstractTask
 {
 	private PrintStream saida;
@@ -21,8 +21,7 @@ public class SocketListenerTask extends AbstractTask
 	private EntityPlayer player;
 	
 	private boolean logged = false;
-	
-	private int error = 0;
+	private boolean sair = false;
 	
 	public SocketListenerTask(Socket socket, String key)
 	{
@@ -31,6 +30,7 @@ public class SocketListenerTask extends AbstractTask
 		try
 		{
 			entrada = new Scanner(socket.getInputStream());
+			saida = new PrintStream(socket.getOutputStream());
 		} 
 		catch (IOException e)
 		{
@@ -43,33 +43,50 @@ public class SocketListenerTask extends AbstractTask
 	@Override
 	public void run()
 	{ 
-		boolean sair = false;
-		
 		while(!sair)
 		{
-			String in = entrada.nextLine();
-			PacketHandler.handlePacketEntry(new PacketEntry(this.socket, in, getTaskID()));
+			try
+			{
+				String in = entrada.nextLine();
+				PacketHandler.handlePacketEntry(new PacketEntry(this.socket, in, getTaskID()));
+			}
+			catch(Exception e)
+			{
+				break;
+			}
 		}
+		
+		ServerLogger.log("Desconectando " + player.getName());
+		Server.getServer().getTaskManager().remove(getTaskID());
 	}
 	
 	public void sendPacket(Packet packet)
 	{
-		try
-		{
-			saida = new PrintStream(socket.getOutputStream());
-			saida.println(packet.serialize());
-		}
-		catch(IOException e)
-		{
-			ServerLogger.warn("Erro SocketListenerTask: " + e.getMessage());
-		}
+		saida.println(packet.serialize());
 	}
 	
 	public void auth(String nick)
 	{
-		ServerLogger.log("Usuário autenticado com sucesso");
+		ServerLogger.log("Usuário " + nick + " autenticado com sucesso");
+		
+		this.player = Server.getServer().getWorld().addPlayer(nick, this);
 		this.logged = true;
 		
-		sendPacket(new PacketPlayOutWorld());
+		sendPacket(new PacketOutWorld());
+	}
+	
+	public void disconnect()
+	{
+		sair = true;
+	}
+	
+	public EntityPlayer getPlayer()
+	{
+		return this.player;
+	}
+	
+	public boolean isLogged()
+	{
+		return this.logged;
 	}
 }

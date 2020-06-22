@@ -2,12 +2,13 @@ package me.giverplay.modernal.server.net.packets;
 
 import org.json.JSONObject;
 
-import me.giverplay.modernal.server.net.PacketPlayIn;
+import me.giverplay.modernal.server.net.PacketIn;
 
-public class PacketPlayInPlayerMove extends PacketPlayIn
+public class PacketInPlayerMove extends PacketIn
 {
-	public PacketPlayInPlayerMove(String nick, int x, int y, boolean jump)
+	public PacketInPlayerMove(String nick, int x, int y, boolean jump)
 	{
+		then("type", "PLAYER_MOVE");
 		then("nickname", nick);
 		then("x", x);
 		then("y", y);
@@ -18,7 +19,7 @@ public class PacketPlayInPlayerMove extends PacketPlayIn
 	@Override
 	public String serialize()
 	{
-JSONObject json = new JSONObject();
+		JSONObject json = new JSONObject();
 		
 		for(String key : data.keySet())
 		{

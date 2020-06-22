@@ -13,9 +13,9 @@ public interface Player
 	public void sendToast(Toast toast);
 	public void playSound(SoundType sound, int volume, int pitch);
 	public void setEquippedItem(Item item);
+	public void sendPacket(Packet packet);
 	
 	public Inventory getInventory();
 	
-	public boolean sendPacket(Packet packet);
 	public boolean hasEquippedItem();
 }

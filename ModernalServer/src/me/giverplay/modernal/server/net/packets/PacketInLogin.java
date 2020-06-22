@@ -2,10 +2,15 @@ package me.giverplay.modernal.server.net.packets;
 
 import org.json.JSONObject;
 
-import me.giverplay.modernal.server.net.PacketPlayIn;
+import me.giverplay.modernal.server.net.PacketIn;
 
-public class PacketPlayInLogin extends PacketPlayIn
+public class PacketInLogin extends PacketIn
 {
+	public PacketInLogin()
+	{
+		then("type", "LOGIN");
+	}
+	
 	@Override
 	public String serialize()
 	{

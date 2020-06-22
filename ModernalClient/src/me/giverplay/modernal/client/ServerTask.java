@@ -3,7 +3,6 @@ package me.giverplay.modernal.client;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.json.JSONException;
@@ -68,6 +67,10 @@ public class ServerTask extends Thread implements Runnable
 				
 			case "UPDATE_ENTITY":
 				Game.getGame().getWorld().updateEntity(json);
+				break;
+				
+			case "PLAYER_JOIN":
+				Game.getGame().getWorld().addPlayer(json);
 				break;
 				
 			default:

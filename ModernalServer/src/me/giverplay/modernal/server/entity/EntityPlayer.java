@@ -4,26 +4,17 @@ import me.giverplay.modernal.server.inventory.Item;
 import me.giverplay.modernal.server.net.Packet;
 import me.giverplay.modernal.server.objects.SoundType;
 import me.giverplay.modernal.server.objects.Toast;
+import me.giverplay.modernal.server.tasks.SocketListenerTask;
 
 public class EntityPlayer extends HumanEntity implements Player
 {
-	private String nick;
+	private SocketListenerTask task;
 	
-	public EntityPlayer(String nick, int x, int y)
+	public EntityPlayer(String nick, SocketListenerTask task, int x, int y)
 	{
-		super(x, y);
+		super(nick, x, y);
 		
-		this.nick = nick;
-	}
-	
-	public void setName(String name)
-	{
-		this.nick = name;
-	}
-	
-	public String getName()
-	{
-		return nick;
+		this.task = task;
 	}
 	
 	@Override
@@ -62,10 +53,9 @@ public class EntityPlayer extends HumanEntity implements Player
 	}
 
 	@Override
-	public boolean sendPacket(Packet packet)
+	public void sendPacket(Packet packet)
 	{
-		// TODO Auto-generated method stub
-		return false;
+		task.sendPacket(packet);
 	}
 
 	@Override

@@ -2,7 +2,8 @@ package me.giverplay.modernal.server.objects.world;
 
 import me.giverplay.modernal.server.entity.Entity;
 import me.giverplay.modernal.server.entity.EntityPlayer;
-import me.giverplay.modernal.server.net.packets.PacketPlayInPlayerMove;
+import me.giverplay.modernal.server.net.packets.PacketInPlayerMove;
+import me.giverplay.modernal.server.tasks.SocketListenerTask;
 
 public interface World
 {
@@ -17,8 +18,8 @@ public interface World
 	public int getWidth();
 	public int getHeight();
 	
-	public void handlePlayerMove(PacketPlayInPlayerMove packet);
+	public void handlePlayerMove(PacketInPlayerMove packet);
 	public void removePlayer(String nick);
 	
-	public EntityPlayer addPlayer(String nick);
+	public EntityPlayer addPlayer(String nick, SocketListenerTask task);
 }

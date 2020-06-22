@@ -45,10 +45,23 @@ public class HumanEntity extends LivingEntity
 		}
 	}
 	
+	private HumanEntity getInstance()
+	{
+		return this;
+	}
+	
 	@Override
 	public void render(Graphics g)
 	{
 		Camera camera = Game.getGame().getCamera();
 		g.drawImage(sprites.get(anim), getX() - camera.getX(), getY() - camera.getY(), null);
+		Game.getGame().addPendingRender(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				Game.getGame().getOutput().renderNickname(getInstance());
+			}
+		});
 	}
 }

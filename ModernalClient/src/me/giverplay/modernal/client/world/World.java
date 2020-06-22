@@ -32,6 +32,7 @@ public class World
 		
 		tiles = new Tile[width * height];
 		load(world.getJSONObject("tiles"));
+		spreadPlayers(world.getJSONObject("players"));
 		game = Game.getGame();
 	}
 	
@@ -71,6 +72,21 @@ public class World
 			}
 		}
 		 
+	}
+	
+	public void spreadEntities(JSONObject json)
+	{
+		// TODO
+	}
+	
+	public void spreadPlayers(JSONObject obj)
+	{
+		for(String key : obj.keySet()) // KEY == NICK
+		{
+			JSONObject player = obj.getJSONObject(key);
+			HumanEntity human = new HumanEntity(key, true, player.getInt("x"), player.getInt("y"), 0, 0, 0, 0);
+			humans.put(key, human);
+		}
 	}
 	
 	public void render(Graphics g)
@@ -140,8 +156,8 @@ public class World
 		String nick = json.getString("nickname");
 		
 		HumanEntity human = new HumanEntity(nick, true, json.getInt("x"), json.getInt("y"), 10, 10, 10, 10);
-		human.setMaxLife(json.getInt("max_life"));
-		human.setLife(json.getInt("life"));
+		//human.setMaxLife(json.getInt("max_life"));
+		//human.setLife(json.getInt("life"));
 		
 		humans.put(nick, human);
 	}

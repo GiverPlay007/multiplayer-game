@@ -4,12 +4,20 @@ import me.giverplay.modernal.server.objects.GameObject;
 
 public class Entity extends GameObject
 {
+	private String name;
+	
 	private int x, y;
 	
-	public Entity(int x, int y)
+	public Entity(String name, int x, int y)
 	{
+		this.name = name;
 		this.x = x;
 		this.y = y;
+	}
+	
+	public String getName()
+	{
+		return this.name;
 	}
 	
 	public int getX()

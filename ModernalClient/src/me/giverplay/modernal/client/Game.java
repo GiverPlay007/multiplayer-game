@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
@@ -37,6 +38,8 @@ public class Game extends Canvas
 	private static Game game;
 	private static GameTask task;
 	private static ServerTask server;
+	
+	private ArrayList<Runnable> pendingSmoothRenders = new ArrayList<>();
 	
 	private JFrame frame;
 	private BufferedImage screen;
@@ -103,7 +106,8 @@ public class Game extends Canvas
 		{
 			try
 			{
-				server = new ServerTask(this, new Socket("02.fh-inter.host", 25871));
+				//server = new ServerTask(this, new Socket("02.fh-inter.host", 25871));
+				server = new ServerTask(this, new Socket("127.0.0.1", 25871));
 			} 
 			catch (UnknownHostException e)
 			{
@@ -191,7 +195,12 @@ public class Game extends Canvas
 		Graphics graphics = bs.getDrawGraphics();
 		graphics.drawImage(screen, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
 		
-		output.renderNickname(player);
+		for(int i = 0; i < pendingSmoothRenders.size(); i++)
+		{
+			Runnable run = pendingSmoothRenders.get(i);
+			run.run();
+			pendingSmoothRenders.remove(run);
+		}
 		
 		bs.show();
 	}
@@ -243,5 +252,10 @@ public class Game extends Canvas
 	public ServerTask getServerWrapper()
 	{
 		return server;
+	}
+
+	public void addPendingRender(Runnable runnable)
+	{
+		pendingSmoothRenders.add(runnable);
 	}
 }

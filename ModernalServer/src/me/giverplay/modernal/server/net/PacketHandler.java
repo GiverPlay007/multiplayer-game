@@ -5,8 +5,8 @@ import java.io.IOException;
 import org.json.JSONObject;
 
 import me.giverplay.modernal.server.Server;
-import me.giverplay.modernal.server.net.packets.PacketPlayInLogin;
-import me.giverplay.modernal.server.net.packets.PacketPlayInPlayerMove;
+import me.giverplay.modernal.server.net.packets.PacketInLogin;
+import me.giverplay.modernal.server.net.packets.PacketInPlayerMove;
 import me.giverplay.modernal.server.objects.ServerLogger;
 import me.giverplay.modernal.server.tasks.SocketListenerTask;
 
@@ -48,7 +48,7 @@ public class PacketHandler
 		int x = json.getInt("x");
 		int y = json.getInt("y");
 		
-		PacketPlayInPlayerMove packet = new PacketPlayInPlayerMove(nick, x, y, bool);
+		PacketInPlayerMove packet = new PacketInPlayerMove(nick, x, y, bool);
 		Server.getServer().getWorld().handlePlayerMove(packet);
 	}
 
@@ -58,7 +58,7 @@ public class PacketHandler
 		String nick = json.getString("nickname");
 		String pass = json.getString("password");
 		
-		PacketPlayInLogin packet = (PacketPlayInLogin) new PacketPlayInLogin()
+		PacketInLogin packet = (PacketInLogin) new PacketInLogin()
 				.then("nickname", nick)
 				.then("password", pass)
 				.end();
@@ -84,7 +84,7 @@ public class PacketHandler
 		((SocketListenerTask) Server.getServer().getTaskManager().getTask(entry.getID())).auth(result);	
 	}
 	
-	public static String validateLogin(PacketPlayInLogin packet)
+	public static String validateLogin(PacketInLogin packet)
 	{
 		JSONObject json = new JSONObject(packet.serialize());
 		final String nick = json.getString("nickname");
@@ -94,7 +94,7 @@ public class PacketHandler
 		return nick;
 	}
 	
-	public static void processInputPacket(PacketPlayIn packet)
+	public static void processInputPacket(PacketIn packet)
 	{
 		
 	}

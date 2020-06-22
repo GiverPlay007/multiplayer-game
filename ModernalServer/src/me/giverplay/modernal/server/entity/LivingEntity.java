@@ -5,9 +5,9 @@ public class LivingEntity extends Entity
 	private int health;
 	private int maxHealth;
 	
-	public LivingEntity(int x, int y)
+	public LivingEntity(String name, int x, int y)
 	{
-		super(x, y);
+		super(name, x, y);
 	}
 	
 	public int getHealth()

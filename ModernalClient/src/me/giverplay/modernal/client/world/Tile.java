@@ -21,7 +21,7 @@ public class Tile
 	{
 		try
 		{
-			Class<?> clazz = Class.forName("me.giverplay.zelda.client.world.tile." + nome);
+			Class<?> clazz = Class.forName("me.giverplay.modernal.client.world.tile." + nome);
 			Constructor<?> cons = clazz.getConstructor(Integer.class, Integer.class);
 			Object obj = cons.newInstance(x, y);
 			
