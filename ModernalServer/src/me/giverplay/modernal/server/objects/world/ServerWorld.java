@@ -13,7 +13,6 @@ import me.giverplay.modernal.server.net.packets.PacketOutPlayerJoin;
 import me.giverplay.modernal.server.net.packets.PacketOutPlayerMove;
 import me.giverplay.modernal.server.net.packets.PacketOutPlayerQuit;
 import me.giverplay.modernal.server.objects.GameObject;
-import me.giverplay.modernal.server.objects.ServerLogger;
 import me.giverplay.modernal.server.tasks.SocketListenerTask;
 
 public class ServerWorld extends GameObject implements World
@@ -119,8 +118,11 @@ public class ServerWorld extends GameObject implements World
 			public void run()
 			{
 				JSONObject json = new JSONObject(packet.serialize());
-				
 				String nickname = json.getString("nickname");
+				EntityPlayer player = players.get(nickname);
+				
+				player.moveX(json.getInt("x"));
+				player.moveY(json.getInt("y"));
 				
 				for(String nick : players.keySet())
 				{
@@ -159,7 +161,7 @@ public class ServerWorld extends GameObject implements World
 	
 	@Override
 	public void removePlayer(String nick)
-	{
+	{		
 		pendingTasks.add(new Runnable()
 		{
 			@Override
@@ -176,9 +178,9 @@ public class ServerWorld extends GameObject implements World
 	}
 	
 	private void broadcast(PacketOut packet)
-	{ServerLogger.log("aaa");
+	{
 		for(EntityPlayer ep : players.values())
-		{ServerLogger.log("bbb");
+		{
 			ep.sendPacket(packet);
 		}
 	}

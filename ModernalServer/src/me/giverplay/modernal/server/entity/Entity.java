@@ -39,7 +39,17 @@ public class Entity extends GameObject
 	{
 		this.y = y;
 	}
-
+	
+	public void moveX(int toMove)
+	{
+		x += toMove;
+	}
+	
+	public void moveY(int toMove)
+	{
+		y += toMove;
+	}
+	
 	@Override
 	public void tick()
 	{

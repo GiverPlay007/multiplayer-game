@@ -58,6 +58,7 @@ public class SocketListenerTask extends AbstractTask
 		
 		ServerLogger.log("Desconectando " + player.getName());
 		Server.getServer().getTaskManager().remove(getTaskID());
+		Server.getServer().getWorld().removePlayer(player.getName());
 	}
 	
 	public void sendPacket(Packet packet)
