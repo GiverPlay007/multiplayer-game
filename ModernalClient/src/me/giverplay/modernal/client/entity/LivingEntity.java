@@ -39,8 +39,7 @@ public class LivingEntity extends Entity
 	@Override
 	public void render(Graphics g)
 	{
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	public int getLife()
@@ -74,13 +73,13 @@ public class LivingEntity extends Entity
 		double speed = y != 0 && x != 0 ? 2 : 3;
 		byte changes = 0;
 		
-		if(canMove((int) (getX() + speed * x), getY()))
+		if(canMove((int) (getX() + speed * x) + mx, getY() + my, mw, mh))
 		{
 			moveX(x * speed);
 			changes++;
 		}
 		
-		if(canMove(getX(), (int) ((getY() + speed * y))))
+		if(canMove(getX() + mx, (int) ((getY() + speed * y) + my), mw, mh))
 		{
 			moveY(y * speed);
 			changes++;
@@ -89,19 +88,19 @@ public class LivingEntity extends Entity
 		return changes != 0;
 	}
 	
-	public boolean canMove(int xn, int yn)
+	public boolean canMove(int xn, int yn, int width, int height) // isFree
 	{
 		int x1 = xn / TILE_SIZE;
 		int y1 = yn / TILE_SIZE;
 		
-		int x2 = (xn + TILE_SIZE -1) / TILE_SIZE;
+		int x2 = (xn + width -1) / TILE_SIZE;
 		int y2 = yn / TILE_SIZE;
 		
 		int x3 = xn / TILE_SIZE;
-		int y3 = (yn + TILE_SIZE -1) / TILE_SIZE;
+		int y3 = (yn + height -1) / TILE_SIZE;
 		
-		int x4 = (xn + TILE_SIZE -1) / TILE_SIZE;
-		int y4 = (yn + TILE_SIZE -1) / TILE_SIZE;
+		int x4 = (xn + width -1) / TILE_SIZE;
+		int y4 = (yn + height -1) / TILE_SIZE;
 		
 		World world = Game.getGame().getWorld();
 		Tile[] tiles = Game.getGame().getWorld().getTiles();

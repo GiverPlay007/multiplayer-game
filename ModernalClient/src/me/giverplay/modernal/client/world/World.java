@@ -84,7 +84,7 @@ public class World
 		for(String key : obj.keySet()) // KEY == NICK
 		{
 			JSONObject player = obj.getJSONObject(key);
-			HumanEntity human = new HumanEntity(key, true, player.getInt("x"), player.getInt("y"), 8, 4, 8, 20);
+			HumanEntity human = new HumanEntity(key, true, player.getInt("x"), player.getInt("y"), 10, 12, 10, 20);
 			humans.put(key, human);
 		}
 	}

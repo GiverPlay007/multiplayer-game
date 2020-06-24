@@ -24,7 +24,7 @@ public class Player extends HumanEntity
 	
 	public Player(int x, int y)
 	{
-		super(Game.getNickname(), true, x, y, 100, 8, 4, 8, 20);
+		super(Game.getNickname(), true, x, y, 100, 10, 12, 10, 20);
 		
 		game = Game.getGame();
 		camera = game.getCamera();
