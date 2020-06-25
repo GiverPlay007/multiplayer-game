@@ -52,6 +52,8 @@ public class InputHandler implements KeyListener
 	public Key right = new Key();
 	public Key attack = new Key();
 	public Key menu = new Key();
+	public Key inventory = new Key();
+	public Key interact = new Key();
 	
 	public void releaseAll()
 	{
@@ -86,52 +88,50 @@ public class InputHandler implements KeyListener
 	
 	private void toggle(KeyEvent ke, boolean pressed)
 	{
-		if (ke.getKeyCode() == KeyEvent.VK_NUMPAD8)
-			up.toggle(pressed);
-		if (ke.getKeyCode() == KeyEvent.VK_NUMPAD2)
-			down.toggle(pressed);
-		if (ke.getKeyCode() == KeyEvent.VK_NUMPAD4)
-			left.toggle(pressed);
-		if (ke.getKeyCode() == KeyEvent.VK_NUMPAD6)
-			right.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_W)
 			up.toggle(pressed);
+		
 		if (ke.getKeyCode() == KeyEvent.VK_S)
 			down.toggle(pressed);
+		
 		if (ke.getKeyCode() == KeyEvent.VK_A)
 			left.toggle(pressed);
+		
 		if (ke.getKeyCode() == KeyEvent.VK_D)
 			right.toggle(pressed);
+		
 		if (ke.getKeyCode() == KeyEvent.VK_UP)
 			up.toggle(pressed);
+		
 		if (ke.getKeyCode() == KeyEvent.VK_DOWN)
 			down.toggle(pressed);
+		
 		if (ke.getKeyCode() == KeyEvent.VK_LEFT)
 			left.toggle(pressed);
+		
 		if (ke.getKeyCode() == KeyEvent.VK_RIGHT)
 			right.toggle(pressed);
 		
-		if (ke.getKeyCode() == KeyEvent.VK_TAB)
-			menu.toggle(pressed);
-		if (ke.getKeyCode() == KeyEvent.VK_ALT)
-			menu.toggle(pressed);
-		if (ke.getKeyCode() == KeyEvent.VK_ALT_GRAPH)
-			menu.toggle(pressed);
+		
 		if (ke.getKeyCode() == KeyEvent.VK_SPACE)
 			attack.toggle(pressed);
+		
 		if (ke.getKeyCode() == KeyEvent.VK_CONTROL)
 			attack.toggle(pressed);
-		if (ke.getKeyCode() == KeyEvent.VK_NUMPAD0)
-			attack.toggle(pressed);
-		if (ke.getKeyCode() == KeyEvent.VK_INSERT)
-			attack.toggle(pressed);
-		if (ke.getKeyCode() == KeyEvent.VK_ENTER)
+		
+		
+		if (ke.getKeyCode() == KeyEvent.VK_ESCAPE)
 			menu.toggle(pressed);
 		
-		if (ke.getKeyCode() == KeyEvent.VK_X)
-			menu.toggle(pressed);
-		if (ke.getKeyCode() == KeyEvent.VK_C)
-			attack.toggle(pressed);
+		
+		if (ke.getKeyCode() == KeyEvent.VK_E)
+			inventory.toggle(pressed);
+		
+		if (ke.getKeyCode() == KeyEvent.VK_TAB)
+			inventory.toggle(pressed);
+		
+		if (ke.getKeyCode() == KeyEvent.VK_F)
+			interact.toggle(pressed);
 	}
 	
 	public void keyTyped(KeyEvent ke)

@@ -57,8 +57,18 @@ public class SocketListenerTask extends AbstractTask
 		}
 		
 		ServerLogger.log("Desconectando " + player.getName());
-		Server.getServer().getTaskManager().remove(getTaskID());
+		
+		try
+		{
+			socket.close();
+		} 
+		catch (IOException e)
+		{
+			ServerLogger.warn("Erro ao fechar socket");
+		}
+		
 		Server.getServer().getWorld().removePlayer(player.getName());
+		Server.getServer().getTaskManager().remove(getTaskID());
 	}
 	
 	public void sendPacket(Packet packet)
