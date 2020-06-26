@@ -7,6 +7,6 @@ public class SandTile extends Tile
 {
 	public SandTile(int x, int y)
 	{
-		super(x, y, TileType.SAND_TILE);
+		super(x, y, TileType.SAND_TILE, false);
 	}
 }

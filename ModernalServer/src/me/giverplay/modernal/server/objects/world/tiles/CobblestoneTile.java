@@ -7,6 +7,6 @@ public class CobblestoneTile extends Tile
 {
 	public CobblestoneTile(int x, int y)
 	{
-		super(x, y, TileType.COBBLESTONE_TILE);
+		super(x, y, TileType.COBBLESTONE_TILE, true);
 	}
 }

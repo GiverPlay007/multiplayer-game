@@ -73,13 +73,13 @@ public class LivingEntity extends Entity
 		double speed = y != 0 && x != 0 ? 2 : 3;
 		byte changes = 0;
 		
-		if(canMove((int) (getX() + speed * x) + mx, getY() + my, mw, mh))
+		if(moveAllowed((int) (getX() + speed * x) + mx, getY() + my, mw, mh))
 		{
 			moveX(x * speed);
 			changes++;
 		}
 		
-		if(canMove(getX() + mx, (int) ((getY() + speed * y) + my), mw, mh))
+		if(moveAllowed(getX() + mx, (int) ((getY() + speed * y) + my), mw, mh))
 		{
 			moveY(y * speed);
 			changes++;
@@ -88,7 +88,7 @@ public class LivingEntity extends Entity
 		return changes != 0;
 	}
 	
-	public boolean canMove(int xn, int yn, int width, int height) // isFree
+	public boolean moveAllowed(int xn, int yn, int width, int height) // isFree
 	{
 		int x1 = xn / TILE_SIZE;
 		int y1 = yn / TILE_SIZE;
@@ -103,7 +103,7 @@ public class LivingEntity extends Entity
 		int y4 = (yn + height -1) / TILE_SIZE;
 		
 		World world = Game.getGame().getWorld();
-		Tile[] tiles = Game.getGame().getWorld().getTiles();
+		Tile[] tiles = world.getTiles();
 		
 		int index1 = x1 + (y1 * world.getWidth());
 		int index2 = x2 + (y2 * world.getWidth());

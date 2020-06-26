@@ -1,18 +1,26 @@
 package me.giverplay.modernal.server.net.packets;
 
+import org.json.JSONObject;
+
 import me.giverplay.modernal.server.net.PacketOut;
 
 public class PacketOutPlayerQuit extends PacketOut
 {
 	public PacketOutPlayerQuit()
 	{
-		// TODO Auto-generated constructor stub
+		then("type", "PLAYER_QUIT");
 	}
 	
 	@Override
 	public String serialize()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		JSONObject json = new JSONObject();
+		
+		for(String key : data.keySet())
+		{
+			json.put(key, data.get(key));
+		}
+		
+		return json.toString();
 	}
 }

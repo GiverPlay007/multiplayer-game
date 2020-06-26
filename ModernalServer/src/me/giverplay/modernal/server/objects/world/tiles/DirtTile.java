@@ -7,6 +7,6 @@ public class DirtTile extends Tile
 {
 	public DirtTile(int x, int y)
 	{
-		super(x, y, TileType.DIRT_TILE);
+		super(x, y, TileType.DIRT_TILE, false);
 	}
 }

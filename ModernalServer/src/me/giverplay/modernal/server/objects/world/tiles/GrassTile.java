@@ -7,6 +7,6 @@ public class GrassTile extends Tile
 {
 	public GrassTile(int x, int y)
 	{
-		super(x, y, TileType.GRASS_TILE);
+		super(x, y, TileType.GRASS_TILE, false);
 	}
 }

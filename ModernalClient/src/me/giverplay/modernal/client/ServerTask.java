@@ -55,6 +55,7 @@ public class ServerTask extends Thread implements Runnable
 	{
 		String entry = json.getString("type");
 		Log.info(json.toString());
+		
 		switch (entry)
 		{
 			case "WORLD":
@@ -71,6 +72,10 @@ public class ServerTask extends Thread implements Runnable
 				
 			case "PLAYER_JOIN":
 				Game.getGame().getWorld().addPlayer(json);
+				break;
+				
+			case "PLAYER_QUIT":
+				Game.getGame().getWorld().removePlayer(json);
 				break;
 				
 			default:

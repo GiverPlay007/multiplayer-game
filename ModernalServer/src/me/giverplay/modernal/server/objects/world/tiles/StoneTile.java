@@ -7,6 +7,6 @@ public class StoneTile extends Tile
 {
 	public StoneTile(int x, int y)
 	{
-		super(x, y, TileType.STONE_TILE);
+		super(x, y, TileType.STONE_TILE, true);
 	}
 }

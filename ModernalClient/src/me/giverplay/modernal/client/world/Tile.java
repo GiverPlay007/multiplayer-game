@@ -2,7 +2,6 @@ package me.giverplay.modernal.client.world;
 
 import java.awt.Graphics;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 import me.giverplay.modernal.client.Game;
 import me.giverplay.modernal.client.Log;
@@ -27,44 +26,9 @@ public class Tile
 			
 			return (Tile) obj;
 		}
-		catch(NullPointerException e)
+		catch(Exception e)
 		{
-			Log.severe("NullPointerException");
-			return null;
-		}
-		catch(ClassNotFoundException e)
-		{
-			Log.severe("Tipo de Tile não existente");
-			return null;
-		} 
-		catch (NoSuchMethodException e)
-		{
-			Log.severe("Construtor indisponível");
-			return null;
-		} 
-		catch (SecurityException e)
-		{
-			Log.severe("Sec");
-			return null;
-		} 
-		catch (InstantiationException e)
-		{
-			Log.severe("Inst");
-			return null;
-		} 
-		catch (IllegalAccessException e)
-		{
-			Log.severe("Ill AC");
-			return null;
-		} 
-		catch (IllegalArgumentException e)
-		{
-			Log.severe("Ill Arg");
-			return null;
-		} 
-		catch (InvocationTargetException e)
-		{
-			Log.severe("Inv");
+			Log.severe("Falha ao instanciar tile (reflection): " + e.getCause() + " | " + e.getMessage());
 			return null;
 		}
 	}

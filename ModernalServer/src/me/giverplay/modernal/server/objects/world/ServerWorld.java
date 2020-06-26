@@ -13,6 +13,7 @@ import me.giverplay.modernal.server.net.packets.PacketOutPlayerJoin;
 import me.giverplay.modernal.server.net.packets.PacketOutPlayerMove;
 import me.giverplay.modernal.server.net.packets.PacketOutPlayerQuit;
 import me.giverplay.modernal.server.objects.GameObject;
+import me.giverplay.modernal.server.objects.world.tiles.GrassTile;
 import me.giverplay.modernal.server.tasks.SocketListenerTask;
 
 public class ServerWorld extends GameObject implements World
@@ -24,6 +25,7 @@ public class ServerWorld extends GameObject implements World
 	private ArrayList<Runnable> pendingTasks = new ArrayList<>();
 	
 	private Tile[] tiles;
+	private Tile[] tiles2;
 	
 	private JSONObject playerJson = new JSONObject();
 	
@@ -35,6 +37,17 @@ public class ServerWorld extends GameObject implements World
 		this.tiles = tiles;
 		this.width = width;
 		this.height = height;
+		this.tiles2 = new Tile[tiles.length];
+		
+		for(int x = 0; x < getWidth(); x++)
+		{
+			for(int y = 0; y < getHeight(); y++)
+			{
+				int index = x + y * width;
+				Tile tile = tiles[index];
+				tiles2[index] = tile != null ? tile : new GrassTile(x, y);
+			}
+		}
 	}
 	
 	public JSONObject getPlayersJson()
@@ -94,7 +107,10 @@ public class ServerWorld extends GameObject implements World
 	@Override
 	public Tile[] getTiles(boolean ignoreDefault)
 	{
-		return tiles;
+		if(ignoreDefault)
+			return tiles;
+		
+		return tiles2;
 	}
 	
 	@Override
@@ -119,10 +135,9 @@ public class ServerWorld extends GameObject implements World
 			{
 				JSONObject json = new JSONObject(packet.serialize());
 				String nickname = json.getString("nickname");
-				EntityPlayer player = players.get(nickname);
 				
-				player.moveX(json.getInt("x"));
-				player.moveY(json.getInt("y"));
+				players.get(nickname).moveRelative(json.getInt("x"), json.getInt("y"));
+				updatePlayersJSON();
 				
 				for(String nick : players.keySet())
 				{

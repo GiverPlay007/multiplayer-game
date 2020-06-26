@@ -7,6 +7,6 @@ public class PoorDirtTile extends Tile
 {
 	public PoorDirtTile(int x, int y)
 	{
-		super(x, y, TileType.POOR_DIRT_TILE);
+		super(x, y, TileType.POOR_DIRT_TILE, false);
 	}
 }

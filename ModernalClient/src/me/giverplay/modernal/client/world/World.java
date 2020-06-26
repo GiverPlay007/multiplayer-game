@@ -162,6 +162,11 @@ public class World
 		humans.put(nick, human);
 	}
 	
+	public void removePlayer(JSONObject json)
+	{
+		humans.remove(json.getString("nickname"));
+	}
+	
 	public void updatePlayer(JSONObject json)
 	{
 		String updateType = json.getString("update_type");
@@ -181,11 +186,6 @@ public class World
 		{
 			ent.ModifyLife(json.getInt("life"));
 			ent.setMaxLife(json.getInt("max_life"));
-		}
-		
-		else if(updateType.equals("REMOVE"))
-		{
-			humans.remove(json.getString("nickname"));
 		}
 	}
 }
