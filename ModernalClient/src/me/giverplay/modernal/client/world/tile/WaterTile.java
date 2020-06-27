@@ -8,6 +8,7 @@ import me.giverplay.modernal.client.Game;
 import me.giverplay.modernal.client.entity.Camera;
 import me.giverplay.modernal.client.graphics.SpriteManager;
 import me.giverplay.modernal.client.world.Tile;
+import me.giverplay.modernal.client.world.TileEnum;
 
 public class WaterTile extends Tile
 {
@@ -19,7 +20,7 @@ public class WaterTile extends Tile
 	
 	public WaterTile(Integer x, Integer y)
 	{
-		super(x, y, null, true);
+		super(x, y, TileEnum.WATER_TILE, true);
 		
 		images = SpriteManager.getWater();
 	}

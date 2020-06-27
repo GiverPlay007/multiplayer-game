@@ -11,25 +11,31 @@ import java.awt.image.BufferedImage;
 import me.giverplay.modernal.client.Game;
 import me.giverplay.modernal.client.entity.Camera;
 import me.giverplay.modernal.client.entity.Entity;
+import me.giverplay.modernal.client.entity.entities.Player;
 
 public class ImageOutput
 {
 	private Game game;
+	private Player player;
 	
 	public ImageOutput(Game game)
 	{
 		this.game = game;
+		this.player = game.getPlayer();
 	}
 	
 	public void render(BufferedImage image)
 	{
+		if(player == null)
+			player = game.getPlayer();
+		
 		Graphics g2 = image.getGraphics();
 		
 		g2.setColor(new Color(0, 0, 0));
 		g2.fillRect(0, 0, Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE);
 		
 		game.getWorld().render(g2);
-		game.getPlayer().render(g2);
+		player.render(g2);
 		
 		g2.dispose();
 	}

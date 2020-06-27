@@ -8,6 +8,8 @@ import java.util.Scanner;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import me.giverplay.modernal.client.utils.Log;
+
 public class ServerTask extends Thread implements Runnable
 {
 	private Scanner entrada;

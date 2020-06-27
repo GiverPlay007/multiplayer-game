@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import me.giverplay.modernal.client.Game;
-import me.giverplay.modernal.client.Log;
+import me.giverplay.modernal.client.utils.Log;
+import me.giverplay.modernal.client.world.TileEnum;
 
 public class SpriteManager
 {
@@ -82,22 +83,22 @@ public class SpriteManager
 	{
 		switch (tile)
 		{
-			case COBBLESTONE:
+			case COBBLESTONE_TILE:
 				return tile_cobblestone;
 				
-			case DIRT:
+			case DIRT_TILE:
 				return tile_dirt;
 				
-			case GRASS:
+			case GRASS_TILE:
 				return tile_grass;
 				
-			case POOR_DIRT:
+			case POOR_DIRT_TILE:
 				return tile_poordirt;
 				
-			case SAND:
+			case SAND_TILE:
 				return tile_sand;
 				
-			case STONE:
+			case STONE_TILE:
 				return tile_stone;
 				
 			default:

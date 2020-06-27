@@ -1,10 +1,12 @@
-package me.giverplay.modernal.client;
+package me.giverplay.modernal.client.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+
+import me.giverplay.modernal.client.Game;
 
 public class Log
 {

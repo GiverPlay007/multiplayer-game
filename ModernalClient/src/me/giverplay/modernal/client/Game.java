@@ -17,14 +17,16 @@ import me.giverplay.modernal.client.entity.entities.Player;
 import me.giverplay.modernal.client.graphics.ImageOutput;
 import me.giverplay.modernal.client.graphics.SpriteManager;
 import me.giverplay.modernal.client.listeners.InputHandler;
+import me.giverplay.modernal.client.utils.Log;
+import me.giverplay.modernal.client.world.Generator;
 import me.giverplay.modernal.client.world.World;
 
 public class Game extends Canvas
 {
 	public static final long serialVersionUID = 1L;
 	
-	public static final int WIDTH = 380;
-	public static final int HEIGHT = 260;
+	public static final int WIDTH = 450;
+	public static final int HEIGHT = 300;
 	public static final int SCALE = 2;
 	
 	private static String nick;
@@ -65,7 +67,7 @@ public class Game extends Canvas
 		serverMode = Boolean.valueOf(args[2]);
 		
 		setupStatic();		
-
+		
 		game = new Game();
 		game.start();
 	}
@@ -149,7 +151,9 @@ public class Game extends Canvas
 		input = new InputHandler(this);
 		camera = new Camera(100, 100);
 		player = new Player(32, 32);
-		server.start();
+		
+		if(serverMode)
+			server.start();
 	}
 	
 	public synchronized void start()
@@ -207,10 +211,17 @@ public class Game extends Canvas
 	
 	public void updateGame()
 	{
-		if(!server.checkReady())
+		if(serverMode)
+		{
+			if(!server.checkReady())
+				return;
+			
+			world = new World(server.getWorld());
+			allReady = true;
 			return;
+		}
 		
-		world = new World(server.getWorld());
+		world = new World(Generator.generate(50, 50, Generator.RANDOM_PATH));
 		allReady = true;
 	}
 	
@@ -253,9 +264,14 @@ public class Game extends Canvas
 	{
 		return server;
 	}
-
+	
 	public void addPendingRender(Runnable runnable)
 	{
 		pendingSmoothRenders.add(runnable);
+	}
+
+	public boolean isServerMode()
+	{
+		return serverMode;
 	}
 }

@@ -5,12 +5,13 @@ import static me.giverplay.modernal.client.graphics.SpriteManager.TILE_SIZE;
 import java.awt.Graphics;
 import java.util.HashMap;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import me.giverplay.modernal.client.Game;
-import me.giverplay.modernal.client.Log;
 import me.giverplay.modernal.client.entity.Entity;
 import me.giverplay.modernal.client.entity.HumanEntity;
+import me.giverplay.modernal.client.utils.Log;
 import me.giverplay.modernal.client.world.tile.GrassTile;
 
 public class World
@@ -32,8 +33,16 @@ public class World
 		
 		tiles = new Tile[width * height];
 		load(world.getJSONObject("tiles"));
-		spreadPlayers(world.getJSONObject("players"));
 		game = Game.getGame();
+		
+		try
+		{
+			spreadPlayers(world.getJSONObject("players"));
+		}
+		catch(JSONException e)
+		{
+			
+		}
 	}
 	
 	private void load(JSONObject obj)
@@ -71,7 +80,6 @@ public class World
 				if(error) System.exit(-1);
 			}
 		}
-		 
 	}
 	
 	public void spreadEntities(JSONObject json)

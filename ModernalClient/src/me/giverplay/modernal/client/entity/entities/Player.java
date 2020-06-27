@@ -67,7 +67,7 @@ public class Player extends HumanEntity
 		
 		isMoving = moveRelative(xi, yi);
 		
-		if(isMoving)
+		if(isMoving && game.isServerMode())
 			game.getServerWrapper().updatePlayer(xi, yi, false);
 	}
 	

@@ -4,10 +4,9 @@ import java.awt.Graphics;
 import java.lang.reflect.Constructor;
 
 import me.giverplay.modernal.client.Game;
-import me.giverplay.modernal.client.Log;
 import me.giverplay.modernal.client.entity.Camera;
 import me.giverplay.modernal.client.graphics.SpriteManager;
-import me.giverplay.modernal.client.graphics.TileEnum;
+import me.giverplay.modernal.client.utils.Log;
 
 public class Tile
 {
@@ -60,5 +59,10 @@ public class Tile
 	public boolean isRigid()
 	{
 		return this.rigid;
+	}
+	
+	public TileEnum getType()
+	{
+		return this.tile;
 	}
 }
