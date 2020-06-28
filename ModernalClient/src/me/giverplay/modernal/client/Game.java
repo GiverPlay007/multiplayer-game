@@ -16,6 +16,7 @@ import me.giverplay.modernal.client.entity.Camera;
 import me.giverplay.modernal.client.entity.entities.Player;
 import me.giverplay.modernal.client.graphics.ImageOutput;
 import me.giverplay.modernal.client.graphics.SpriteManager;
+import me.giverplay.modernal.client.graphics.UserInterface;
 import me.giverplay.modernal.client.listeners.InputHandler;
 import me.giverplay.modernal.client.utils.Log;
 import me.giverplay.modernal.client.world.Generator;
@@ -46,6 +47,7 @@ public class Game extends Canvas
 	private JFrame frame;
 	private BufferedImage screen;
 	
+	private UserInterface ui;
 	private InputHandler input;
 	private ImageOutput output;
 	private Camera camera;
@@ -147,6 +149,7 @@ public class Game extends Canvas
 		
 		screen = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		output = new ImageOutput(this);
+		ui = new UserInterface(this);
 		
 		input = new InputHandler(this);
 		camera = new Camera(100, 100);
@@ -181,6 +184,7 @@ public class Game extends Canvas
 		
 		input.tick();
 		player.tick();
+		ui.tick();
 	}
 	
 	public synchronized void render()
@@ -273,5 +277,10 @@ public class Game extends Canvas
 	public boolean isServerMode()
 	{
 		return serverMode;
+	}
+
+	public UserInterface getUserInterface()
+	{
+		return this.ui;
 	}
 }

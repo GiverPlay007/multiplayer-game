@@ -36,8 +36,7 @@ public class ImageOutput
 		
 		game.getWorld().render(g2);
 		player.render(g2);
-		
-		g2.dispose();
+		game.getUserInterface().render(getSmoothGraphics());
 	}
 	
 	public Graphics getSmoothGraphics()
