@@ -29,9 +29,11 @@ public class UserInterface
 		{
 			@Override
 			public void run()
-			{
+			{				
 				Player player = game.getPlayer();
 				int coe = calcLife(player.getMaxLife());
+				
+				player.ModifyLife(+1);
 				
 				g.setColor(Color.BLACK);
 				g.drawRect(12, 12, coe + 1, 26);
@@ -45,7 +47,7 @@ public class UserInterface
 		});
   }
   
-  private int calcLife(int life)
+  private int calcLife(int life) 
   {  	
   	return 250 * life / 100;
   }

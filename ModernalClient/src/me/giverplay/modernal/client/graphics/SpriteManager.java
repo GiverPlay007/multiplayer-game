@@ -10,6 +10,11 @@ import me.giverplay.modernal.client.Game;
 import me.giverplay.modernal.client.utils.Log;
 import me.giverplay.modernal.client.world.TileEnum;
 
+/*
+ * Aviso
+ * Este sistema não foi otimizado (Acho que isso está bem claro '-')
+ * 
+ */
 public class SpriteManager
 {
 	public static final int TILE_SIZE = 32;
