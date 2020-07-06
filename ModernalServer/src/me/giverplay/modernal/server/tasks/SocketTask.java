@@ -24,22 +24,12 @@ public class SocketTask extends AbstractTask
 			{
 				Socket socket = server.getConnectionHandler().getConnection().getListener().accept();
 				Server.getServer().getTaskManager().handleNewClientTask(socket);
-				
 				ServerLogger.log("Cliente novo conectado, aguardando autenticação");
 			} 
 			catch (IOException e)
 			{
-				ServerLogger.log("Falha ao estabelecer conexão com o cliente");
+				ServerLogger.warn("Falha ao estabilizar com o cliente");
 				e.printStackTrace();
-			}
-			
-			try
-			{
-				Thread.sleep(1000 / 60);
-			}
-			catch(InterruptedException e)
-			{
-				ServerLogger.warn("Atividade interrompida");
 			}
 		}
 	}
